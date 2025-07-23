@@ -1,18 +1,21 @@
-# 🧊 NixOS BSPWM Minimal Setup (MSI U210 Light)
+# 🧊 NixOS Minimal Setup (BSPWM Edition) for MSI U210 Light
 
-Лёгкая NixOS-система на Btrfs с BSPWM, Polybar, Rofi, Gruvbox-оформлением и браузером Qutebrowser.
+Мой личный конфиг для минималистичной системы NixOS на базе оконного менеджера BSPWM. Лёгкий, красивый (в стиле Gruvbox), идеален для слабых ноутов вроде MSI U210.
 
 ## Состав
-- WM: bspwm + sxhkd
-- Network: networkmanager
-- Terminal: alacritty
-- File Managers: ranger, pcmanfm
-- Theme: gruvbox, papirus icons
-- Browser: qutebrowser
+
+- **WM**: BSPWM + SXHKD
+- **Файловые менеджеры**: Ranger, PCManFM
+- **Браузер**: Qutebrowser
+- **Темы**: Gruvbox + Papirus
+- **ФС**: Btrfs
+- **Терминал**: Alacritty
+- **Редактор**: Neovim
+- **Панель**: Polybar
 
 ## Установка
 
 ```bash
-git clone https://github.com/gaz30001/NIXOS
-cp -r nixos-config/* /mnt/etc/nixos/
+git clone git@github.com:gaz30001/nixos-config.git
+cp nixos-config/* /mnt/etc/nixos/
 nixos-install

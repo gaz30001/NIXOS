@@ -19,7 +19,7 @@
   users.users.oleg = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
-    password = "1234"; # замени после установки
+    password = "1234"; # измени после установки
   };
 
   environment.systemPackages = with pkgs; [
@@ -36,17 +36,17 @@
     sxhkd
     dmenu
     alacritty
-    gruvbox
     feh
     lxappearance
     papirus-icon-theme
+    gruvbox
     unzip
     htop
   ];
 
   services.xserver = {
     enable = true;
-    displayManager.startx.enable = true; # нет gdm/lightdm
+    displayManager.startx.enable = true;
     windowManager.bspwm.enable = true;
     windowManager.bspwm.package = pkgs.bspwm;
   };
