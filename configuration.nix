@@ -1,5 +1,5 @@
 # /etc/nixos/configuration.nix
-# Конфигурация для ноутбука с AMD Athlon Neo MV-40 и ATI Radeon Xpress 1200
+# Конфигурация для ноутбука с AMD Athlon Neo MV-40 и ATI Radeon Xpress 1200 (ИСПРАВЛЕННАЯ)
 
 { config, pkgs, ... }:
 
@@ -10,17 +10,19 @@
     ];
 
   # --- Загрузчик GRUB для системы с BIOS (Non-EFI) ---
-  # Устанавливаем GRUB на диск /dev/sda. Если ваш диск называется иначе, измените здесь.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
 
   # --- Сеть ---
-  networking.hostName = "nixos-athlon"; # Имя компьютера в сети
+  networking.hostName = "nixos-athlon";
   networking.networkmanager.enable = true;
 
   # --- Локализация и время ---
   time.timeZone = "Europe/Moscow";
-  i18n.setDefaultLocale = "ru_RU.UTF-8";
+
+  # ИСПРАВЛЕННАЯ СТРОКА:
+  i18n.defaultLocale = "ru_RU.UTF-8";
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "ru";
@@ -30,50 +32,35 @@
   users.users.oleg = {
     isNormalUser = true;
     description = "Oleg";
-    initialPassword = "tronik"; # Не забудьте сменить после первого входа
-    extraGroups = [ "wheel" "networkmanager" ]; # 'wheel' дает права sudo
+    initialPassword = "tronik";
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 
   # --- Графическая подсистема (Xorg) ---
   services.xserver = {
     enable = true;
-
-    # Явно указываем драйвер для вашей видеокарты ATI Radeon Xpress
     videoDrivers = [ "ati" ];
-
-    # Включаем оконный менеджер bspwm
     windowManager.bspwm.enable = true;
-    
-    # Отключаем менеджер входа (login manager), будем входить через консоль
     displayManager.none = true;
-    
-    # Запускать X-сервер (графику) автоматически после входа в tty1
     startxatlogin = true;
-    
-    # Раскладка клавиатуры для графической сессии
     layout = "us,ru";
     options = "grp:alt_shift_toggle";
   };
   
   # --- Пакеты ---
   environment.systemPackages = with pkgs; [
-    # Основа
     git
     neovim
     unzip
-    
-    # Окружение bspwm
     bspwm
-    sxhkd # для горячих клавиш
-    polybar # статус-бар
-    rofi # меню запуска
-    pcmanfm # файловый менеджер
-    ranger # консольный файловый менеджер
-    alacritty # терминал
-    feh # для установки обоев
-    dmenu # альтернативное меню
-    
-    # Браузер
+    sxhkd
+    polybar
+    rofi
+    pcmanfm
+    ranger
+    alacritty
+    feh
+    dmenu
     qutebrowser
   ];
 
@@ -103,7 +90,6 @@
   # Разрешаем установку несвободных пакетов
   nixpkgs.config.allowUnfree = true;
 
-  # Обязательная строка. Указывает версию NixOS.
-  # Используйте ту версию, которую скачали (например, 23.11 или 24.05)
+  # Обязательная строка.
   system.stateVersion = "23.11"; 
 }
